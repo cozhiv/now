@@ -116,7 +116,7 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
             <span id ="endinT" class="parts">
                 <label for="endingH">Краен час:  </label>
             <input type="number" name="endingH" id ="endingH" min="0" max="23"> : <input type="number" name="endingM" id="endingM" min="0" max="59">  
-            </span>
+            </span><br/>
         <span id="durationH">
             <label for="duration">Времетраене (часове)</label>
             <input type="number" name="duration" id="duration"></span>
@@ -126,7 +126,7 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
             <textarea name="highlights" rows="5" cols="40" id = "highlights"></textarea>
         </div>
         <div id="descriptio" class = "lines">
-            <label for="desvription">Описание:  </label>
+            <label for="description">Описание:  </label>
             <textarea name="description" rows="5" cols="40" id="description"></textarea>
         </div>
         <div id="lin1" class="lines">
@@ -166,8 +166,8 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
         <button id="addEvent" >Добави събитието</button>
     </div>  
     <br><br>
-    <div id ="results">
-    </div>
+    <!--div id ="results">
+    </div-->
  
     
 <!--   SHOW    -->
@@ -175,47 +175,33 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
 
     <div id="findEvent" class="fields">
         <div id ="searchText" class="lines">
-            текст
-            <span id = "textV">
-                <input id = "text" type="text" name ="textP">
+            
+            <span id = "titleS" class="parts">
+                <label for="title">текст: </label>
+                <input id = "title" type="text" name ="title">
             </span>
-            в
-            <span id = "textP" class="parts">
-                <select id="textS">
-                  <option value="">изключено</option>  
-                  <option value="highlights">заглавие </option>
-                  <option value="description">описание</option>
-                </select>
-            </span>
-            за събитие, коeто
         </div>
         <div id="searchTime" class="lines">
-            <span id = "whenP" class="parts">
-                <select id="whenS">
-                  <option value="">изключено</option>  
-                  <option value="sb">започва преди</option>
-                  <option value="sa">започва след</option>
-                  <option value="eb">свършва преди</option>
-                  <option value="ea">свършва след</option>
-                </select>
+            <span id = "dateS"  class = "parts">
+                <label for="date">дата: </label>
+                <input id = "date" name = "dateV" type="date">
+            </span>
+            <span id = "hourS"  class = "parts">
+            <label for="hour">час: </label>
+                <input id = "hour" name = "hourV" type="number">
             </span>
             
-            дата
-            <span id = "dateS"  class = "parts">
-                <input id = "dateV" name = "dateV" type="date">
-            </span>
-            час
-            <span id = "hourS" class = "parts">
-                <input id = "hourV" name = "hourV" type="number">
-            </span>
-            минута
             <span id = "minuteS" class = "parts">
-                <input id = "minuteV" name ="minuteV" type="number">
+                <label for="minute">минута: </label>
+                <input id = "minute" name ="minuteV" type="number">
             </span>
             <div id = "searchB" class="buttons">
                 <button id = "search">Търси</button>
             </div>
         </div>
+    </div>
+    <br><br>
+    <div id ="results">
     </div>
 </div>
     
@@ -342,118 +328,59 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
                 })();  
                 
                 (function(){
-                    var text = $('#text');
-                    var textS = $('#textS');
-                    var whenS = $('#whenS');
-                    var dateV = $('#dateV');
-                    var hourV = $('#hourV');
-                    var minuteV = $('#minuteV');    
                     
                     
-                    //var concrete = $('#concrete')
+                    
                     
                     $('#search').on('click', function(){
-                        console.log("text: "+text+", dateV: "+dateV+", textS: "+textS+", when: "+whenS);
-                        var dateVV =  $('#dateV').val();
-                        console.log("dateVV: " + dateVV);
-                        var minuteVV = '';
-                        var hourVV = $(hourV).val();
-                       var minuteVVV= $(minuteV).val();
-                        var whenSV = $(whenS).val();
-                        var timeV = '';
-                        if (!!hourVV){
+                        //console.log("text: "+text+", dateV: "+dateV+", textS: "+textS+", when: "+whenS);
+                        var dateV = $('#date').val();
+                        var hourV = $('#hour').val();
+                        var minuteV = $('#minute').val();
+                        console.log('min'+minuteV);
+                        console.log('h'+hourV);
+                        console.log('d'+dateV);
+                        
+                        var time = hourV +":"+ minuteV;
+                        var text = $('#title').val();
+                        console.log("before p: "+text);
+                        $.post( 'show.php', { "title": text, "time": time, "date": dateV}, function(data){
+                            console.log(data);
+                            var events = '';
+                            try{
+                                var arr = JSON.parse(data);
+                                console.log(arr);
 
-                            if (minuteVV == null || minuteVV == ''){
-                                minuteVV = '00';
-                            } else {
-                                minuteVV = ("0" + minuteVVV).slice(-2);
+                                for (var i = 0; i < arr.length; i++){
+                                    events += "<div id = 'container" + arr[i].id +"' style='background-image:url(\""+ arr[i].img +"\")' class='containers'>";
+                                    events += "<span class='showIDs'>id: " + arr[i].id + "</span>";
+                                    events += "<span class='mainstreams'>популярост: " + arr[i].mainstream + "</span>";                   
+                                    events += "<span class='rankings'>ранг: " + arr[i].rank + "</span>";
+                                    events += "<div class='times'> От:" + arr[i].startingOn +" в "+ arr[i].startingAt + "часа,  до:" + arr[i].endingOn + " в "+arr[i].endingAt +"часа</div>";
+                                    events += "<div clas ='highlightss'>" +arr[i].highlights + "</div>";
+                                    events += "<div clas ='descriptions'>" +arr[i].description + "</div>";
+                                    events += "<button id ='change"+arr[i].id+"' class ='changebuttons'>Промени</button>";
+                                    events += "<button id ='del"+ arr[i].id +"' class ='deletebuttons'>Изтрий</button>";      
+                                    events += "</div>";
+                                }
+                                console.log("events"+events);
+                            } catch(e){
+                                events = data;
                             }
-                            timeV = ("0" + hourVV).slice(-2) +":"+ minuteVV;
-                        }
-                        var words = "";
-                        var textV = $(text).val();
-                        if (textV != ""){
-                            words = "w";
-                        }
-                        var timeIndex ="";
-                        if (whenSV != "" && ((dateVV!="" || timeV != "") || (dateVV!="" && timeV != ""))){
-                            timeIndex = "t";
-                        }
-                        if(words != "" && ((dateVV!= "" && timeV == "") || (dateVV =="" && timeV != ""))){
-                            timeIndex="";
-                        }
-                       console.log("words: "+words+", timeindex: "+timeIndex+", dateVV: "+dateVV+", timeV: "+ timeV);
-                        var when = "";
-                        var on = "";
-                        var at = "";
-                        console.log("cases: " + whenSV);
-                        switch (whenSV){
-                            case "sb":
-                                when = "b";
-                                if (dateVV != ""){
-                                    on = "startingOn";
-                                }
-                                if (timeV != ""){
-                                    at = "startingAt";
-                                }
-                                break;
-                            case "sa" :
-                                when = "a";
-                                if (dateVV != ""){
-                                    on = "startingOn";
-                                }
-                                if (timeV != ""){
-                                    at = "startingAt"
-                                }
-                                break;
-                            case "ea" :
-                                when = "a";
-                                if (dateVV != ""){
-                                    on = "endingOn";
-                                }
-                                if (timeV != ""){
-                                    at = "endingAt";
-                                }
-                                break;
-                            case "eb" :
-                                when = "b";
-                                if (dateVV != ""){
-                                    on = "endingOn";
-                                }
-                                if (timeV != ""){
-                                    at = "endingAt";
-                                }
-                                break;
-                        }
-                        console.log("on: " + on + ", at: " + at);
-                        var quant = "" + words + when + timeIndex;
-                        var param = "" + $(textS).val() + on + at;
-                        var val = "" + textV + dateVV + timeV;
-                        console.log("q: "+quant+", p: "+param+", v: "+val);
-                        if ($("changeButtons")){
-                            $("changeButtons").off();
-                        }
-                        if ($("deleteButtons")){
-                            $("deleteButtons").off();
-                        }
-                        $.post( 'eventshow.php', {'q':quant, 'parameter': param, 'value': val}, function(data){;
-                            $('#results').html(data);
-                            console.log("Why not shou event?");
-                            if ($("changeButtons")){
-                                $("changeButtons").on('click', function(){
+                            $('#results').html(events);
+                            
+                        });
+                    });
+                    $("#results").on('click',".changebuttons", function(){
                                    var eventId = $(this).attr("id").replace('change', '');
+                                   console.log('change!');
                                    alert("not implemented yet.  Event id:" + eventId);
-                                });
-                            }
-                            if ($("deleteButtons")){
-                                $("deleteButtons").on('click', function(){
+                    });
+                    $("#results").on('click', ".deletebuttons", function(){
                                    var eventId = $(this).attr("id").replace('del', '');
                                    $.post('delete.php',{'parameter': 'id', 'value': eventId},function(data){
                                        $('#container'+ eventId).html(data);
                                    });
-                                });
-                            }
-                        });
                     });
                 })();
                 
