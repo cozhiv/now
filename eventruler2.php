@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     
 <style>
@@ -14,11 +13,10 @@
                 margin-top: 2px;
                 margin-bottom: 16px;
                 resize: vertical;
-                font-size:13pt;
-                text-align: center;
+                font-size:13pt
             }
             input[type=text], input[type=password]{
-                width: 300px;
+                width: 400px;
             }
             textarea{
                 width: 90%;
@@ -26,41 +24,26 @@
                 
             }
             select{
-                width: 20px;
+                width: 80px;
             }
 
             button {
-                background-color: #7A013B;
+                background-color: #4CAF50;
                 color: white;
                 padding: 12px 20px;
-                margin: 0 5px;
                 border: none;
                 border-radius: 4px;
                 cursor: pointer;
             }
 
             button:hover {
-                background-color: #6A013B;
+                background-color: #45a049;
             }
 
             .container {
-                width: 600px;
+                width: 90%;
                 border-radius: 5px;
-                background-color: #52E497;
-                padding: 20px;
-                margin: 0 auto 0 auto;
-            }
-            .container2 {
-                width: 600px;
-                border-radius: 5px;
-                background-color: #52A097;
-                padding: 20px;
-                margin: 0 auto 0 auto;
-            }
-            .results {
-                width: 600px;
-                border-radius: 5px;
-                /*background-color: #52A097;*/
+                background-color: #f2f2f2;
                 padding: 20px;
                 margin: 0 auto 0 auto;
             }
@@ -70,91 +53,21 @@
             .lines{
                 display:table-row;
             }
-            #durationH{
+            #duratonH{
                 width: 40px;
             }
-            #mainstream, #additionalRanking{
-                width:60px;
-            }
-            #datetime1, #datetime2{
-                width: 150px;
-            }
-            .lines{
-                display:block;
-            }
-            .parts{
-                display:inline;
-            }
-            .econtainers{
-                background-repeat: no-repeat;
-                background-position: center center;
-                background-size: cover;
-                margin: 2px 0 0 0;
-                padding: 6px 10px 6px 20px;
-                border-radius: 5px;
-            }
-            .events.text{
-                background: #AAD1BB;
-            }
-            .highlightss, .descriptions{
-                text-align: justify;
-                text-justify: inter-word;
-            }
-            .socialnetworks {
-                width:20px;
-            }
-            .controls{
-                position:relative;
-            }
-            #datetime3, #datetime4, #text {
-                    display: table-cell;
-                }
-            #findEvent{
-                display:table;
-            }
-            /*label[for="datetime3"], label[for="datetime4"], label[for="title"]{
-                display:table-cell;
-            }
-            #searchText, #searchDate, #searchTime{
-                display:table-row;
-            }*/
             
-            /*@media screen and (max-width: 505px) {
-            .parts{
-                    display:block;
-                }
-            }*/
-            @media screen and (max-width: 546px) {
-                input[type=text], input[type=password], textarea, select, imput{
+            @media screen and (max-width: 300px) {
+                input[type=text], input[type=password], textarea, select{
                     width:100%;
-                    padding: 8px;
+                    padding: 12px;
                     border: 1px solid #ccc;
                     border-radius: 4px;
                     box-sizing: border-box;
                     margin-top: 6px;
                     margin-bottom: 16px;
                     resize: vertical;
-                    display:block;
                 }
-                #mainstream, #additionalRanking{
-                    width:50px;
-                }
-                #datetime1, #datetime2{
-                    width: 200px;
-                }
-                .container{
-                    width: 90%;
-                }
-                .container2{
-                    width: 90%;
-                }
-                .results{
-                    width: 90%;                   
-                }
-                .parts{
-                    display:block;
-                }
-                
             }
         </style>
 <title>направи събитие</title>
@@ -187,22 +100,32 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
         <h2>Зареждане на събитие</h2>
         <p><span class="error">* required field.</span></p>
         
-        <p></p>
+        <p><input id="datetime1" type="text" ></p>
+        <p><input id="datetime2" type="text" ></p>
         
-        <div id ="timings" class="lines">
-            
-            <div id ="startin" class="parts">
-                <label for="datetime1">Начало: </label>
-            <input id="datetime1" name = "starting" type="text" >
-            </div>
-            <div id ="endin" class="parts">
-                <label for="datetime2"> Край:  </label>
-                <input id="datetime2" name = "ending" type="text" >           
-            </div>
+        <div id ="startin" class="lines">    
+            <span id ="starinD" class="parts">
+                <label for="startongOn">Започва на(гггг-мм-дд): </label>
+            <input type="date" name="startingOn" id="startingOn"> 
+            </span>
+            <span id ="starinT" class="parts">
+                <label for="startingH">начален час: </label>
+            <input type="number" name="startingH" id="startingH" min="0" max="23"> : <input type="number" name="startingM" id ="startingM" min="0" max="59">
+            </span>
         </div>
-            
-    </div>
-    
+        <div id ="endin" class="lines">
+            <span id ="endinD" class="parts">
+                <label for="endingOn">Свършва на(гггг-мм-дд):  </label>
+            <input type="date" name="endingOn" id="endingOn">
+            </span>
+            <span id ="endinT" class="parts">
+                <label for="endingH">Краен час:  </label>
+            <input type="number" name="endingH" id ="endingH" min="0" max="23"> : <input type="number" name="endingM" id="endingM" min="0" max="59">  
+            </span><br/>
+        <span id="durationH">
+            <label for="duration">Времетраене (часове)</label>
+            <input type="number" name="duration" id="duration"></span>
+        </div>
         <div id="highlight" class = "lines">
             <label for="highlights">Заглавие: </label>
             <textarea name="highlights" rows="5" cols="40" id = "highlights"></textarea>
@@ -246,7 +169,6 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
             </span>
         </div>
         <button id="addEvent" >Добави събитието</button>
-        <!--/conrtainer -->
     </div>  
     <br><br>
     <!--div id ="results">
@@ -255,50 +177,55 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
     
 <!--   SHOW    -->
 
-<div id="field2" class = "container2">
-    Търси събитие с <br/>
+
     <div id="findEvent" class="fields">
-        <div id ="searchText" class="lines">           
-            <div id = "titleS" class="parts">
+        <div id ="searchText" class="lines">
+            
+            <span id = "titleS" class="parts">
                 <label for="title">текст: </label>
                 <input id = "title" type="text" name ="title">
+            </span>
+        </div>
+        <p><input id="datetime3" type="text" ></p>
+        <p><input id="datetime4" type="text" ></p>
+        <div id="searchTime" class="lines">
+            <span id = "dateS"  class = "parts">
+                <label for="date">дата: </label>
+                <input id = "date" name = "dateV" type="date">
+            </span>
+            <span id = "hourS"  class = "parts">
+            <label for="hour">час: </label>
+                <input id = "hour" name = "hourV" type="number">
+            </span>
+            
+            
+            <span id = "minuteS" class = "parts">
+                <label for="minute">минута: </label>
+                <input id = "minute" name ="minuteV" type="number">
+            </span>
+            <div id = "searchB" class="buttons">
+                <button id = "search">Търси</button>
             </div>
         </div>
-        <div id="searchDate" class="lines">
-            <div id ="findafter" class="parts">
-                <label for="datetime3">Започва след: </label>
-                <input id="datetime3" name = "findafter" type="text" >
-            </div>           
-        </div>
-        <div id="searchTime" class="lines">
-            <div id ="findafter2" class="parts">
-                <label for="datetime4">Започва след: </label>
-                <input id="datetime4" name = "findafter2" type="text" >
-            </div>           
-        </div>
-        <div id = "searchB" class="buttons">
-                <button id = "search">Търси</button>
-        </div>
+    </div>
+    <br><br>
+    <div id ="results">
     </div>
 </div>
-    <br><br>
-    <div id ="results" class="results">
-    </div>
-<!--</div>-->
     
     <script>
             $(document).ready(function(){
                 (function(){
                     var highlights = $('#highlights');
                     var description = $('#description');
-                    //var startingOn = $('#startingOn');
+                    var startingOn = $('#startingOn');
                     
-                    //var startingH = $('#startingH');
-                    //var startingM = $('#startingM');
-                    //var endingOn = $('#endingOn');
+                    var startingH = $('#startingH');
+                    var startingM = $('#startingM');
+                    var endingOn = $('#endingOn');
                     
-                    //var endingH = $('#endingH');
-                    //var endingM = $('#endingM');
+                    var endingH = $('#endingH');
+                    var endingM = $('#endingM');
 
                     var link1 = $ ('#link1');
 		    var link2 = $("#link2");
@@ -312,18 +239,15 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
                     
 				
                     var results = $('#results');
-                    //var duration = $('#duration');
-                    //$(duration).val(1);
+                    var duration = $('#duration');
+                    $(duration).val(1);
                     
-                    //var date = new Date();
-                    //var startMinute = date.getMinutes();
-                    //var startHour = date.getHours();
-                    //var startDate = date.toISOString().substr(0, 10);
+                    var date = new Date();
+                    var startMinute = date.getMinutes();
+                    var startHour = date.getHours();
+                    var startDate = date.toISOString().substr(0, 10);
                     
-                    var starting = $('#datetime1');
-                    var ending = $('#datetime2');
-                    
-                    /*var durationDays = 0;
+                    var durationDays = 0;
                     var durationV = $(duration).val();
                     var endHour = parseInt(startHour) + parseInt(durationV);
                     if (endHour > 23){
@@ -367,13 +291,13 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
                         $(endingH).val(endHour);
                         $(endingM).val(endMinute);
                         $(endingOn).val(endDate);
-                    });*/
+                    });
                     
                    // ("0" + (now.getMonth() + 1)).slice(-2);
                       
-                    $('#addEvent').on('click', function(){
-                        var begin = $(starting).val().replace(/\//g ,'-');
-                        var end = $(ending).val().replace(/\//g ,'-');
+                    $('#addEvent').on('click',function(){
+                        var begin = $('#datetime1').val().replace(/\//g ,'-');
+                        var end = $('#datetime2').val().replace(/\//g ,'-');
                         var highlightsV = $(highlights).val();
                         var descriptionV = $(description).val();
                         var startingOnV = begin.substr(0,10);//$(startingOn).val();
@@ -382,13 +306,6 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
                         var endingOnV = end.substr(0,10);//$(endingOn).val();
                         var endingHV = end.substr(11,12);//("0" +$(endingH).val()).slice(-2);
                         var endingMV = end.substr(14,2);//("0" +$(endingM).val()).slice(-2);
-                        if (startingOnV === endingOnV){
-                            if (parseInt(startingHV) > parseInt(endingHV)){
-                                alert("Ending must be after Begining!");
-                            } else if (startingHV === endingHV && parseInt(startingMV) > parseInt(endingMV)){
-                                alert("Ending must be after Begining!");
-                            }
-                        }
 			var link1V = $(link1).val();
                         var link2V = $(link2).val();
                         var link3V = $(link3).val();
@@ -427,19 +344,16 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
                     
                     $('#search').on('click', function(){
                         //console.log("text: "+text+", dateV: "+dateV+", textS: "+textS+", when: "+whenS);
-                        var after = $('#datetime3').val();//.replace(/\//g ,'-');
-                        var aftert = $('#datetime4').val();
-                        var dateV = after.substr(0,10);//$('#date').val();
-                        console.log("date: "+dateV);
-                        var hourV = aftert.substr(0,2);//$('#hour').val();
-                        console.log("time: "+after);
-                        var minuteV = aftert.substr(3,2);//$('#minute').val();
-                        console.log('min: '+minuteV);
-                        console.log('h: '+hourV);
-                        console.log('d: '+dateV);
+                        var date = $('#datetime3').val().replace(/\//g ,'-');
+                        var time = $('#datetime4').val();
+                        var dateV = date;//$('#date').val();
+                        var hourV = time.substr(0,2);//$('#hour').val();
+                        var minuteV = time.substr(3, 5);//$('#minute').val();
+                        console.log('min'+minuteV);
+                        console.log('h'+hourV);
+                        console.log('d'+dateV);
                         
-                        var time = $('#datetime4').val().substr(0,5);//hourV +":00";//// hourV +":"+ minuteV;
-                        console.log("time2: "+time);
+                        var time = hourV +":"+ minuteV;
                         var text = $('#title').val();
                         console.log("before p: "+text);
                         $.post( 'show.php', { "title": text, "time": time, "date": dateV}, function(data){
@@ -450,25 +364,18 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
                                 console.log(arr);
 
                                 for (var i = 0; i < arr.length; i++){
-                                    events += "<div id = 'econtainer" + arr[i].id +"' style='background-image:url(\""+ arr[i].img +"\")' class='econtainers'>";
-                                    events += "<span class='showIDs events text'>id: " + arr[i].id + "</span>";
-                                    events += "<span class='mainstreams events text'>| популярост: " + arr[i].mainstream + "</span>";                   
-                                    events += "<span class='rankings events text'>| ранг: " + arr[i].rank + "</span>";
-                                    events += "<div class='times events'><span class='events text'> От:" + arr[i].startingOn +" в "+ arr[i].startingAt + "часа,  до:" + arr[i].endingOn + " в "+arr[i].endingAt +"часа</span></div>";
-                                    events += "<div class ='highlightss events'><span class = 'events text'>" +arr[i].highlights + "</span></div>";
-                                    events += "<div class ='descriptions events'><span class = 'events text'>" +arr[i].description + "</span></div>";
-                                    events += "<a href ='"+ arr[i].link2 +"' target='_blank'><img class='socialnetworks' src='/circleicons/Facebook.png'/></a>";
-                                    events += "<a href ='"+ arr[i].link3 +"' target='_blank'><img class='socialnetworks' src='/circleicons/Twitter.png'/></a>";
-                                    events += "<a href ='"+ arr[i].link4 +"' target='_blank'><img class='socialnetworks' src='/circleicons/Linkedin.png'/></a>";
-                                    events += "<a href ='"+ arr[i].link5 +"' target='_blank'><img class='socialnetworks' src='/circleicons/Google+.png'/></a>";
-                                    events += "<a href ='"+ arr[i].link6 +"' target='_blank'><img class='socialnetworks' src='/circleicons/YouTube.png'/></a>";
-                                    events += "<div class='controls'>";
+                                    events += "<div id = 'container" + arr[i].id +"' style='background-image:url(\""+ arr[i].img +"\")' class='containers'>";
+                                    events += "<span class='showIDs'>id: " + arr[i].id + "</span>";
+                                    events += "<span class='mainstreams'>популярост: " + arr[i].mainstream + "</span>";                   
+                                    events += "<span class='rankings'>ранг: " + arr[i].rank + "</span>";
+                                    events += "<div class='times'> От:" + arr[i].startingOn +" в "+ arr[i].startingAt + "часа,  до:" + arr[i].endingOn + " в "+arr[i].endingAt +"часа</div>";
+                                    events += "<div clas ='highlightss'>" +arr[i].highlights + "</div>";
+                                    events += "<div clas ='descriptions'>" +arr[i].description + "</div>";
                                     events += "<button id ='change"+arr[i].id+"' class ='changebuttons'>Промени</button>";
                                     events += "<button id ='del"+ arr[i].id +"' class ='deletebuttons'>Изтрий</button>";      
                                     events += "</div>";
-                                    events += "</div>";
                                 }
-                                //console.log("events"+events);
+                                console.log("events"+events);
                             } catch(e){
                                 events = data;
                             }
@@ -493,30 +400,23 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
                 
                 jQuery('#datetime1').datetimepicker({
                               onShow:function( ct ){
-                                  //format:'Y/m/d H:i',
                                this.setOptions({
-                                maxDate:jQuery('#datetime2').val()?jQuery('#datetime2').val():false //,
-                                //maxTime:jQuery('#datetime2').val()?jQuery('#datetime2').val():false
+                                maxDate:jQuery('#datetime2').val()?jQuery('#datetime2').val():false,
+                                maxTime:jQuery('#datetime2').val()?jQuery('#datetime2').val():false
                                });
                               }
                              });
                 jQuery('#datetime2').datetimepicker({
                               onShow:function( ct ){
                                this.setOptions({
-                                minDate:jQuery('#datetime1').val()?jQuery('#datetime1').val():false//,
-                                //minTime:jQuery('#datetime1').val()?jQuery('#datetime1').val():false
+                                minDate:jQuery('#datetime1').val()?jQuery('#datetime1').val():false,
+                                minTime:jQuery('#datetime1').val()?jQuery('#datetime1').val():false
                                });
                               }
                              });
                              
-                             jQuery('#datetime3').datetimepicker({
-                                format:"Y-m-d",
-                                timepicker:false
-                             });
-                              jQuery('#datetime4').datetimepicker({
-                                format: "H:m",
-                                datepicker:false
-                              });
+                             jQuery('#datetime3').datetimepicker({timepicker:false});
+                             jQuery('#datetime4').datetimepicker({datepicker:false});
                              
                 //docready end
             });
@@ -528,6 +428,6 @@ echo "<class ='addition'>Hello {$_SESSION['name']}!</div>";
 
 </body>
 <link rel="stylesheet" type="text/css" href="/when/jquery.datetimepicker.css" />
-    <!--script src="/when/jquery.js"></script-->
+    <script src="/when/jquery.js"></script>
     <script src="/when/build/jquery.datetimepicker.full.min.js"></script>
 </html>

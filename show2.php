@@ -15,13 +15,16 @@ if (isset($_SESSION['whatever'])){
     $msql = "SELECT * FROM TimeMash WHERE ";
     if ($title!=""){
         $msql = $msql."highlights LIKE '%{$word}%' OR description LIKE '%{$word}%' GROUP BY startingAt;";
-    } else if ($time!=''){
-        $msql = $msql."startingAt >= '{$clock}' GROUP BY startingAt;";
-    } else if ($date!=''){
-        $msql = $msql."startingOn >= '{$date}' GROUP BY startingOn;";
-    } else {
-        $msql = $msql."highlights LIKE '%{$word}%' OR description LIKE '%{$word}%' GROUP BY startingAt;";
-    }
+    //} else if ($time!=':'){
+    //    $msql = $msql."startingAt >= '{$clock}' GROUP BY startingAt;";
+    //} else if ($date!=''){
+    //    $msql = $msql."startingOn >= '{$date}' GROUP BY startingOn;";
+        } else if ($date!=''){
+            $msql = $msql."startingOn >= '{$date}'AND startingAt >= '{$time}' GROUP BY startingOn;";
+        } else {
+            $msql = $msql."(highlights LIKE '%{$word}%' OR description LIKE '%{$word}%') AND "
+            . "startingOn >= '{$date}'AND startingAt >= '{$time}' GROUP BY startingOn;";
+        }
     /* SELECT * 
 FROM TimeMash 
 WHERE startingOn = CURRENT_DATE - INTERVAL 3 DAY */
